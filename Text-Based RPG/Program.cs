@@ -12,15 +12,19 @@ namespace Text_Based_RPG
         {
             bool isRunning = true;
             Player player = new Player();
+            Map map = new Map();
+
 
             // --------------------------- Game Loop 
             while(isRunning)
             {
+                // ----------------- Map 
+                // map.DrawBorder(); Needs Work
+
+                // ----------------- Player 
                 player.MovePlayer();
                 Console.Clear();
                 player.DrawCharacter();
-
-                
             }
         }
     }

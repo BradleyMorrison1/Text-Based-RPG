@@ -20,9 +20,11 @@ namespace Text_Based_RPG
 
         public void DrawCharacter()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.SetCursorPosition(playerX, playerY);
             RangeCheckBorder();
             Console.Write(playerAvatar);
+            Console.ResetColor();
         }
 
         public void MovePlayer()

@@ -8,5 +8,17 @@ namespace Text_Based_RPG
 {
     class Map
     {
+        public Map()
+        {
+
+        }
+        public void DrawBorder()
+        {
+            // Draws Top Border
+            for (int i = 0; i < Console.WindowWidth; i++)
+            {
+                Console.Write("═");
+            }
+        }
     }
 }
