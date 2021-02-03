@@ -10,6 +10,18 @@ namespace Text_Based_RPG
     {
         static void Main(string[] args)
         {
+            bool isRunning = true;
+            Player player = new Player();
+
+            // --------------------------- Game Loop 
+            while(isRunning)
+            {
+                player.MovePlayer();
+                Console.Clear();
+                player.DrawCharacter();
+
+                
+            }
         }
     }
 }
