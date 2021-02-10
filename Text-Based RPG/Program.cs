@@ -11,20 +11,40 @@ namespace Text_Based_RPG
         static void Main(string[] args)
         {
             bool isRunning = true;
+            bool enemyAttacked = false;
+
             Player player = new Player();
+            Enemy enemy = new Enemy();
             Map map = new Map();
 
-
+            map.Draw();
+            player.Draw();
+            enemy.Draw();
             // --------------------------- Game Loop 
             while(isRunning)
             {
-                // ----------------- Map 
-                // map.DrawBorder(); Needs Work
-
-                // ----------------- Player 
-                player.MovePlayer();
+                player.ShowHud();
+                enemy.ShowHud();
+                enemy.Move(player.playerX, player.playerY);
+                if (player.playerX == enemy.enemyX && player.playerY == enemy.enemyY && !enemyAttacked) // Attacks if player and enemy are on top of each other
+                {
+                    int newHealth = enemy.Attack(player.health);
+                    player.health = newHealth;
+                    player.RangeCheck();
+                    enemyAttacked = true;
+                }
+                player.Move();
+                if (player.playerX == enemy.enemyX && player.playerY == enemy.enemyY)
+                {
+                    int newHealth = player.Attack(enemy.health);
+                    enemy.RangeCheck();
+                    enemy.health = newHealth;
+                }
+                enemyAttacked = false;
                 Console.Clear();
-                player.DrawCharacter();
+                map.Draw();
+                enemy.Draw();
+                player.Draw();
             }
         }
     }
