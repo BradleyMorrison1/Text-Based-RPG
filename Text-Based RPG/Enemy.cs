@@ -77,8 +77,9 @@ namespace Text_Based_RPG
         }
         private void RangeCheckBorder()
         {
-            if (enemyX <= 0) enemyX++;
-            if (enemyY <= 0) enemyY++;
+            if (enemyX <= 1) enemyX++;
+            if (enemyY <= 1) enemyY++;
+            if (enemyY >= (Console.WindowHeight - 6)) enemyY--;
         }
 
         public int Attack(int externalHealth)
