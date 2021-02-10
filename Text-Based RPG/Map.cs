@@ -35,6 +35,21 @@ namespace Text_Based_RPG
                 Console.Write("═");
             }
             Console.Write("╗");
+            for (int j = 0; j < (Console.WindowHeight - 6); j++)
+            {
+                Console.WriteLine("║");
+            }
+            for (int j = 0; j < (Console.WindowHeight - 6); j++)
+            {
+                Console.SetCursorPosition(Console.WindowWidth-1, j+1);
+                Console.WriteLine("║");
+            }
+            Console.Write("╚");
+            for (int j = 0; j < (Console.WindowWidth - 2); j++)
+            {
+                Console.Write("═");
+            }
+            Console.Write("╝");
         }
     }
 }

@@ -81,7 +81,7 @@ namespace Text_Based_RPG
 
         public void ShowHud()
         {
-            Console.SetCursorPosition(0, Console.WindowHeight);
+            Console.SetCursorPosition(1, Console.WindowHeight);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("| " + playerName + " |  Health: " + health + " |");
             Console.ResetColor();
