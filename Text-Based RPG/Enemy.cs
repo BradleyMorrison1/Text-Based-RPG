@@ -91,7 +91,7 @@ namespace Text_Based_RPG
         public void ShowHud()
         {
             string enemyHUD = ("| " + enemyName + " |  Health: " + health + " |");
-            Console.SetCursorPosition((Console.WindowWidth - enemyHUD.Length - 1), Console.WindowHeight);
+            Console.SetCursorPosition((Console.WindowWidth - enemyHUD.Length - 1), Console.WindowHeight-2);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write(enemyHUD);
             Console.ResetColor();
