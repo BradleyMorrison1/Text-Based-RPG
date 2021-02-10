@@ -42,7 +42,7 @@ namespace Text_Based_RPG
             for (int j = 0; j < (Console.WindowHeight - 6); j++)
             {
                 Console.SetCursorPosition(Console.WindowWidth-1, j+1);
-                Console.WriteLine("║");
+                Console.Write("║");
             }
             Console.Write("╚");
             for (int j = 0; j < (Console.WindowWidth - 2); j++)
