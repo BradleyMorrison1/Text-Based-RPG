@@ -15,8 +15,8 @@ namespace Text_Based_RPG
         static string[] mapArray = File.ReadAllLines("Map.txt");
         public Map()
         {
-            mapWidth = 100;
-            mapHeight = 100;
+            mapWidth = 60;
+            mapHeight = 30;
         }
         
         public void Draw()
@@ -25,6 +25,16 @@ namespace Text_Based_RPG
             {
                 Console.Write(mapArray[i]);
             }
+        }
+        public void DrawBorder()
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.Write("╔");
+            for (int i = 0; i < (Console.WindowWidth - 2); i++)
+            {
+                Console.Write("═");
+            }
+            Console.Write("╗");
         }
     }
 }

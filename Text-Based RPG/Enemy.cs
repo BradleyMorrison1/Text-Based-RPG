@@ -9,6 +9,7 @@ namespace Text_Based_RPG
     class Enemy
     {
         string enemyAvatar = "■";
+        string enemyName = "";
 
         Random rand = new Random();
 
@@ -27,6 +28,8 @@ namespace Text_Based_RPG
             maxHealth = 100;
             health = maxHealth;
             damageMult = 4;
+
+            enemyName = "Enemy";
         }
 
         public void Draw()
@@ -57,7 +60,7 @@ namespace Text_Based_RPG
                     enemyY += rand.Next(3);
                 }
             }
-            else if (moveChance == 1 || moveChance == 2 || moveChance == 3) // Makes the enemy not move at player always
+            else if (moveChance == 1 || moveChance == 2) // Makes the enemy not move at player every turn
             {
                 // moves enemy toward player
                 if (enemyX != playerX)
@@ -86,7 +89,11 @@ namespace Text_Based_RPG
         }
         public void ShowHud()
         {
-            Console.Write("| Health: " + health + " |");
+            string enemyHUD = ("| " + enemyName + " |  Health: " + health + " |");
+            Console.SetCursorPosition((Console.WindowWidth - enemyHUD.Length), Console.WindowHeight);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(enemyHUD);
+            Console.ResetColor();
         }
         public void RangeCheck()
         {

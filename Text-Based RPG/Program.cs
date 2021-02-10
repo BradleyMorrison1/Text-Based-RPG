@@ -10,39 +10,41 @@ namespace Text_Based_RPG
     {
         static void Main(string[] args)
         {
+
             bool isRunning = true;
-            bool enemyAttacked = false;
+            bool playerAttacked = false;
 
             Player player = new Player();
             Enemy enemy = new Enemy();
             Map map = new Map();
 
-            map.Draw();
+            map.DrawBorder();
             player.Draw();
             enemy.Draw();
             // --------------------------- Game Loop 
             while(isRunning)
             {
+                map.DrawBorder();
+
                 player.ShowHud();
                 enemy.ShowHud();
-                enemy.Move(player.playerX, player.playerY);
-                if (player.playerX == enemy.enemyX && player.playerY == enemy.enemyY && !enemyAttacked) // Attacks if player and enemy are on top of each other
-                {
-                    int newHealth = enemy.Attack(player.health);
-                    player.health = newHealth;
-                    player.RangeCheck();
-                    enemyAttacked = true;
-                }
                 player.Move();
                 if (player.playerX == enemy.enemyX && player.playerY == enemy.enemyY)
                 {
                     int newHealth = player.Attack(enemy.health);
                     enemy.RangeCheck();
                     enemy.health = newHealth;
+                    playerAttacked = true;
                 }
-                enemyAttacked = false;
+                enemy.Move(player.playerX, player.playerY);
+                if (player.playerX == enemy.enemyX && player.playerY == enemy.enemyY && !playerAttacked) // Attacks if player and enemy are on top of each other
+                {
+                    int newHealth = enemy.Attack(player.health);
+                    player.health = newHealth;
+                    player.RangeCheckHealth();
+                }
+                playerAttacked = false;
                 Console.Clear();
-                map.Draw();
                 enemy.Draw();
                 player.Draw();
             }

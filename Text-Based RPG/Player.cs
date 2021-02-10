@@ -9,6 +9,7 @@ namespace Text_Based_RPG
     class Player
     {
         string playerAvatar = "■";
+        string playerName = "";
 
         Random rand = new Random();
 
@@ -28,6 +29,8 @@ namespace Text_Based_RPG
             maxHealth = 100;
             health = maxHealth;
             damageMult = 4;
+
+            playerName = "Player";
         }
 
         public void Draw()
@@ -80,11 +83,11 @@ namespace Text_Based_RPG
         {
             Console.SetCursorPosition(0, Console.WindowHeight);
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("| Health: " + health + " |");
+            Console.Write("| " + playerName + " |  Health: " + health + " |");
             Console.ResetColor();
         }
 
-        public void RangeCheck()
+        public void RangeCheckHealth()
         {
             if (health <= 0) health = 0;
             if (health >= maxHealth) health = maxHealth;
