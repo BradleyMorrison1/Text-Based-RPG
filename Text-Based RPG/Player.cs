@@ -6,40 +6,20 @@ using System.Threading.Tasks;
 
 namespace Text_Based_RPG
 {
-    class Player
+    class Player : GameCharacter
     {
-        string playerAvatar = "■";
-        string playerName = "";
-
-        Random rand = new Random();
-
-        public int playerX = Console.CursorLeft;
-        public int playerY = Console.CursorTop;
-
-        public int maxHealth;
-        public int health;
-        public int damageMult; // Multiplier for damage
-
         public Player()
         {
             // Starting Position
-            playerX = 1;
-            playerY = 1;
+            x = 1;
+            y = 1;
             // Variable initalization
             maxHealth = 100;
             health = maxHealth;
             damageMult = 4;
 
-            playerName = "Player";
-        }
-
-        public void Draw()
-        {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.SetCursorPosition(playerX, playerY);
-            RangeCheckBorder();
-            Console.Write(playerAvatar);
-            Console.ResetColor();
+            name = "Player";
+            avatarColor = ConsoleColor.Cyan;
         }
 
         public void Move()
@@ -49,49 +29,30 @@ namespace Text_Based_RPG
             switch (userInput.KeyChar)
             {
                 case 'w':
-                    playerY--;
+                    y--;
                     break;
 
                 case 's':
-                    playerY++;
+                    y++;
                     break;
 
                 case 'a':
-                    playerX--;
+                    x--;
                     break;
 
                 case 'd':
-                    playerX++;
+                    x++;
                     break;
             }
         }
 
-        private void RangeCheckBorder()
-        {
-            if (playerX <= 1) playerX++;
-            if (playerY <= 1) playerY++;
-            if (playerY >= (Console.WindowHeight - 6)) playerY--;
-        }
-
-        public int Attack(int externalHealth)
-        {
-            int damagedHealth;
-            damagedHealth = externalHealth - (rand.Next(10) * damageMult);
-            return damagedHealth;
-        }
-
         public void ShowHud()
         {
-            Console.SetCursorPosition(1, Console.WindowHeight-2);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("| " + playerName + " |  Health: " + health + " |");
+            Console.SetCursorPosition(1, Console.WindowHeight - 2);
+            Console.ForegroundColor = avatarColor;
+            Console.Write("| " + name + " |  Health: " + health + " |");
             Console.ResetColor();
         }
 
-        public void RangeCheckHealth()
-        {
-            if (health <= 0) health = 0;
-            if (health >= maxHealth) health = maxHealth;
-        }
     }
 }

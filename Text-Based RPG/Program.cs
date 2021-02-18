@@ -29,15 +29,14 @@ namespace Text_Based_RPG
                 player.ShowHud();
                 enemy.ShowHud();
                 player.Move();
-                if (player.playerX == enemy.enemyX && player.playerY == enemy.enemyY)
+                if (player.x == enemy.x && player.y == enemy.y)
                 {
                     int newHealth = player.Attack(enemy.health);
-                    enemy.RangeCheck();
                     enemy.health = newHealth;
                     playerAttacked = true;
                 }
-                enemy.Move(player.playerX, player.playerY);
-                if (player.playerX == enemy.enemyX && player.playerY == enemy.enemyY && !playerAttacked) // Attacks if player and enemy are on top of each other
+                enemy.Move(player.x, player.y);
+                if (player.x == enemy.x && player.y == enemy.y && !playerAttacked) // Attacks if player and enemy are on top of each other
                 {
                     int newHealth = enemy.Attack(player.health);
                     player.health = newHealth;

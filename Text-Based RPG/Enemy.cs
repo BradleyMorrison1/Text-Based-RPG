@@ -6,20 +6,8 @@ using System.Threading.Tasks;
 
 namespace Text_Based_RPG
 {
-    class Enemy
+    class Enemy : GameCharacter
     {
-        string enemyAvatar = "■";
-        string enemyName = "";
-
-        Random rand = new Random();
-
-        public int enemyX = 10;
-        public int enemyY = 5;
-
-        public int maxHealth;
-        public int health;
-        public int damageMult; // Multiplier for damage
-
         public int moveChance; // Used to decide if enemy will move
 
         public Enemy()
@@ -29,21 +17,13 @@ namespace Text_Based_RPG
             health = maxHealth;
             damageMult = 4;
 
-            enemyName = "Enemy";
-        }
-
-        public void Draw()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(enemyX, enemyY);
-            RangeCheckBorder();
-            Console.Write(enemyAvatar);
-            Console.ResetColor();
+            name = "Enemy";
+            avatarColor = ConsoleColor.Red;
         }
 
         public void Move(int playerX, int playerY)
         {
-            int enemyXY = enemyX + enemyY;  
+            int enemyXY = x + y;  
             int playerXY = playerX + playerY;
             int playerDistance = enemyXY - playerXY;
 
@@ -53,53 +33,36 @@ namespace Text_Based_RPG
             {
                 if (moveChance == 3)
                 {
-                    enemyX += rand.Next(3);
+                    x += rand.Next(3);
                 }
                 else if (moveChance == 4)
                 {
-                    enemyY += rand.Next(3);
+                    y += rand.Next(3);
                 }
             }
             else if (moveChance == 1 || moveChance == 2) // Makes the enemy not move at player every turn
             {
                 // moves enemy toward player
-                if (enemyX != playerX)
+                if (x != playerX)
                 {
-                    if (playerX > enemyX) enemyX++;
-                    else enemyX--;
+                    if (playerX > x) x++;
+                    else x--;
                 }
-                if (enemyY != playerY)
+                if (y != playerY)
                 {
-                    if (playerY > enemyY) enemyY++;
-                    else enemyY--;
+                    if (playerY > y) y++;
+                    else y--;
                 }
             }
-        }
-        private void RangeCheckBorder()
-        {
-            if (enemyX <= 1) enemyX++;
-            if (enemyY <= 1) enemyY++;
-            if (enemyY >= (Console.WindowHeight - 6)) enemyY--;
-        }
 
-        public int Attack(int externalHealth)
-        {
-            int damagedHealth;
-            damagedHealth = externalHealth - (rand.Next(10) * damageMult);
-            return damagedHealth;
         }
         public void ShowHud()
         {
-            string enemyHUD = ("| " + enemyName + " |  Health: " + health + " |");
-            Console.SetCursorPosition((Console.WindowWidth - enemyHUD.Length - 1), Console.WindowHeight-2);
-            Console.ForegroundColor = ConsoleColor.Red;
+            string enemyHUD = ("| " + name + " |  Health: " + health + " |");
+            Console.SetCursorPosition((Console.WindowWidth - enemyHUD.Length - 1), Console.WindowHeight - 2);
+            Console.ForegroundColor = avatarColor;
             Console.Write(enemyHUD);
             Console.ResetColor();
-        }
-        public void RangeCheck()
-        {
-            if (health <= 0) health = 0;
-            if (health >= maxHealth) health = maxHealth;
         }
     }
 }
