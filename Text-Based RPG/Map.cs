@@ -10,20 +10,41 @@ namespace Text_Based_RPG
 {
     class Map
     {
-        int mapWidth;
-        int mapHeight;
-        static string[] mapArray = File.ReadAllLines("Map.txt");
+
+        int mapWidth = 61;
+        int mapHeight= 60;
+
+
         public Map()
         {
-            mapWidth = 60;
-            mapHeight = 30;
+            
         }
         
         public void Draw()
         {
-            for (int i = 0; i < mapArray.Length; i++)
+            //Console.SetWindowSize(60, 66);
+            Console.SetCursorPosition(0, 0);
+
+            var map = new char[mapWidth, mapHeight];
+            var file = new StreamReader("Map.txt");
+
+            string line;
+
+            int lineCount = 0;
+
+            while((line = file.ReadLine()) != null)
             {
-                Console.Write(mapArray[i]);
+                if(lineCount < mapHeight)
+                {
+                    for(int i = 0; i < mapWidth/* && i < line.Length*/; i++)
+                    {
+                        map[i, lineCount] = line[i];
+                        Console.Write(map[i, lineCount]);
+                        //Console.Write(map[1,1]);
+                    }
+                    Console.WriteLine();
+                    lineCount++;
+                }
             }
         }
         public void DrawBorder()
