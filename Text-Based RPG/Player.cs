@@ -22,33 +22,43 @@ namespace Text_Based_RPG
             avatarColor = ConsoleColor.Cyan;
         }
 
-        public void Move()
+        public void Move(int enemyX, int enemyY, char[,] map)
         {
-            ConsoleKeyInfo userInput = Console.ReadKey(true);
+            while (Console.KeyAvailable) Console.ReadKey(false); // Adds a buffer to prevent stacked movement
 
+            ConsoleKeyInfo userInput = Console.ReadKey(true);
             switch (userInput.KeyChar)
             {
                 case 'w':
                     y--;
+                    if (enemyX == x && enemyY == y) Attack();
+                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) y++;
                     break;
 
                 case 's':
                     y++;
+                    if (enemyX == x && enemyY == y) Attack();
+                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) y--;
                     break;
 
                 case 'a':
                     x--;
+                    if (enemyX == x && enemyY == y) Attack();
+                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) x++;
                     break;
 
                 case 'd':
                     x++;
+                    if (enemyX == x && enemyY == y) Attack();
+                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) x--;
                     break;
             }
         }
 
         public void ShowHud()
         {
-            Console.SetCursorPosition(1, Console.WindowHeight - 2);
+            RangeCheckHealth();
+            Console.SetCursorPosition(1, Console.WindowHeight - 1);
             Console.ForegroundColor = avatarColor;
             Console.Write("| " + name + " |  Health: " + health + " |");
             Console.ResetColor();

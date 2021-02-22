@@ -17,49 +17,95 @@ namespace Text_Based_RPG
             health = maxHealth;
             damageMult = 4;
 
+            // Starting Position
+            x = 50;
+            y = 5;
+
             name = "Enemy";
             avatarColor = ConsoleColor.Red;
         }
 
-        public void Move(int playerX, int playerY)
+        public void Move(int playerX, int playerY, char[,] map)
         {
             int enemyXY = x + y;  
             int playerXY = playerX + playerY;
             int playerDistance = enemyXY - playerXY;
 
-            moveChance = rand.Next(5) + 1;
+            int moveType = 0;
 
-            if (playerDistance > 3)
+
+            switch (moveType)
             {
-                if (moveChance == 3)
+                case 0:
+                if (playerDistance > 3) // Enemy wanders
                 {
-                    x += rand.Next(3);
-                }
-                else if (moveChance == 4)
+                    moveChance = rand.Next(10);
+                    switch (moveChance)
+                        {
+                            case 1:
+                                x++;
+                                if (map[x, y] != ' ' || playerX == x && playerY == y) x--;
+                                break;
+
+                            case 2:
+                                x--;
+                                if (map[x, y] != ' ' || playerX == x && playerY == y) x++;
+                                break;
+
+                            case 3:
+                                y++;
+                                if (map[x, y] != ' ' || playerX == x && playerY == y) y--;
+                                break;
+
+                            case 4:
+                                y--;
+                                if (map[x, y] != ' ' || playerX == x && playerY == y) y++;
+                                break;
+                        }
+                    }
+                else if (moveChance < 6) // Makes the enemy move at player just over every other turn
                 {
-                    y += rand.Next(3);
+                    // moves enemy toward player
+                    if (x != playerX)
+                    {
+                        if (playerX > x)
+                        {
+                            x++;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) x--;
+                        }
+                        else
+                        {
+                            x--;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) x++;
+                        }
+                    }
+
+                    if (y != playerY)
+                    {
+                        if (playerY > y) 
+                        {
+                            y++;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) y--;
+                        }
+                        else
+                        {
+                            y--;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) y++;
+                        }
+                    }
                 }
+                break;
+
+
             }
-            else if (moveChance == 1 || moveChance == 2) // Makes the enemy not move at player every turn
-            {
-                // moves enemy toward player
-                if (x != playerX)
-                {
-                    if (playerX > x) x++;
-                    else x--;
-                }
-                if (y != playerY)
-                {
-                    if (playerY > y) y++;
-                    else y--;
-                }
-            }
+            
 
         }
         public void ShowHud()
         {
+            RangeCheckHealth();
             string enemyHUD = ("| " + name + " |  Health: " + health + " |");
-            Console.SetCursorPosition((Console.WindowWidth - enemyHUD.Length - 1), Console.WindowHeight - 2);
+            Console.SetCursorPosition((Console.WindowWidth - enemyHUD.Length - 1), Console.WindowHeight - 1);
             Console.ForegroundColor = avatarColor;
             Console.Write(enemyHUD);
             Console.ResetColor();

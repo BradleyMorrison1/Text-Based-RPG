@@ -14,8 +14,8 @@ namespace Text_Based_RPG
 
         protected Random rand = new Random();
 
-        public int x = Console.CursorLeft;
-        public int y = Console.CursorTop;
+        public int x;
+        public int y;
 
         public int maxHealth;
         public int health;
@@ -24,21 +24,18 @@ namespace Text_Based_RPG
         public void Draw()
         {
 
-            Console.ForegroundColor = avatarColor; 
+            Console.ForegroundColor = avatarColor;
+            RangeCheckWindowBorder();
             Console.SetCursorPosition(x, y);
-            RangeCheckBorder();
             Console.Write(avatar);
             Console.ResetColor();
         }
 
-        private void RangeCheckBorder()
+        public void RangeCheckWindowBorder()
         {
-            if (x <= 1) x++;
-            if (y <= 1) y++;
-            if (y >= (Console.WindowHeight - 6)) y--;
+            if (x <= 0) x++;
+            else if (y <= 0) y++;
         }
-
-        
 
         public void RangeCheckHealth()
         {
@@ -46,11 +43,15 @@ namespace Text_Based_RPG
             if (health >= maxHealth) health = maxHealth;
         }
 
-        public int Attack(int externalHealth)
+        public int Attack()
         {
-            int damagedHealth;
-            damagedHealth = externalHealth - (rand.Next(10) * damageMult);
-            return damagedHealth;
+            int damage = 0;
+            damage = rand.Next(6) * damageMult;
+            return damage;
+        }
+        public void BeAttacked(int damage)
+        {
+            health -= damage;
         }
     }
 }

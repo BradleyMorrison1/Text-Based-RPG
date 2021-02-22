@@ -10,10 +10,12 @@ namespace Text_Based_RPG
 {
     class Map
     {
+        public static int mapWidth = 60;
+        public static int mapHeight= 61;
+        public static char[,] map = new char[mapWidth, mapHeight];
 
-        int mapWidth = 61;
-        int mapHeight= 60;
 
+        
 
         public Map()
         {
@@ -22,11 +24,12 @@ namespace Text_Based_RPG
         
         public void Draw()
         {
-            //Console.SetWindowSize(60, 66);
+            Console.SetWindowSize(60, 61);
             Console.SetCursorPosition(0, 0);
 
-            var map = new char[mapWidth, mapHeight];
             var file = new StreamReader("Map.txt");
+
+            
 
             string line;
 
@@ -40,37 +43,12 @@ namespace Text_Based_RPG
                     {
                         map[i, lineCount] = line[i];
                         Console.Write(map[i, lineCount]);
-                        //Console.Write(map[1,1]);
                     }
                     Console.WriteLine();
                     lineCount++;
                 }
             }
         }
-        public void DrawBorder()
-        {
-            Console.SetCursorPosition(0, 0);
-            Console.Write("╔");
-            for (int i = 0; i < (Console.WindowWidth - 2); i++)
-            {
-                Console.Write("═");
-            }
-            Console.Write("╗");
-            for (int j = 0; j < (Console.WindowHeight - 6); j++)
-            {
-                Console.WriteLine("║");
-            }
-            for (int j = 0; j < (Console.WindowHeight - 6); j++)
-            {
-                Console.SetCursorPosition(Console.WindowWidth-1, j+1);
-                Console.Write("║");
-            }
-            Console.Write("╚");
-            for (int j = 0; j < (Console.WindowWidth - 2); j++)
-            {
-                Console.Write("═");
-            }
-            Console.Write("╝");
-        }
+        
     }
 }
