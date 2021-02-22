@@ -32,9 +32,10 @@ namespace Text_Based_RPG
 
 
                 player.Move(enemy.x, enemy.y, Map.map);
+                if (player.isAttacking) enemy.BeAttacked(player.AttackDamage());
 
                 enemy.Move(player.x, player.y, Map.map);
-
+                if (enemy.isAttacking) player.BeAttacked(enemy.AttackDamage());
 
                 Console.Clear();
                 player.Draw();

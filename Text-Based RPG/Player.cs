@@ -8,6 +8,8 @@ namespace Text_Based_RPG
 {
     class Player : GameCharacter
     {
+
+
         public Player()
         {
             // Starting Position
@@ -20,6 +22,10 @@ namespace Text_Based_RPG
 
             name = "Player";
             avatarColor = ConsoleColor.Cyan;
+        }
+
+        public void Update()
+        {
         }
 
         public void Move(int enemyX, int enemyY, char[,] map)
@@ -63,6 +69,5 @@ namespace Text_Based_RPG
             Console.Write("| " + name + " |  Health: " + health + " |");
             Console.ResetColor();
         }
-
     }
 }

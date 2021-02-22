@@ -37,7 +37,7 @@ namespace Text_Based_RPG
             switch (moveType)
             {
                 case 0:
-                if (playerDistance > 3) // Enemy wanders
+                if (playerDistance > 5) // Enemy wanders
                 {
                     moveChance = rand.Next(10);
                     switch (moveChance)
@@ -71,11 +71,13 @@ namespace Text_Based_RPG
                         if (playerX > x)
                         {
                             x++;
+                            if (playerX == x && playerY == y) Attack();
                             if (map[x, y] != ' ' || playerX == x && playerY == y) x--;
                         }
                         else
                         {
                             x--;
+                            if (playerX == x && playerY == y) Attack();
                             if (map[x, y] != ' ' || playerX == x && playerY == y) x++;
                         }
                     }
@@ -85,11 +87,13 @@ namespace Text_Based_RPG
                         if (playerY > y) 
                         {
                             y++;
+                            if (playerX == x && playerY == y) Attack();
                             if (map[x, y] != ' ' || playerX == x && playerY == y) y--;
                         }
                         else
                         {
                             y--;
+                            if (playerX == x && playerY == y) Attack();
                             if (map[x, y] != ' ' || playerX == x && playerY == y) y++;
                         }
                     }

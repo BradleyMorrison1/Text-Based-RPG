@@ -12,6 +12,8 @@ namespace Text_Based_RPG
         protected string name = "";
         protected ConsoleColor avatarColor;
 
+        public bool isAttacking = false;
+
         protected Random rand = new Random();
 
         public int x;
@@ -23,7 +25,7 @@ namespace Text_Based_RPG
 
         public void Draw()
         {
-
+            isAttacking = false;
             Console.ForegroundColor = avatarColor;
             RangeCheckWindowBorder();
             Console.SetCursorPosition(x, y);
@@ -43,7 +45,7 @@ namespace Text_Based_RPG
             if (health >= maxHealth) health = maxHealth;
         }
 
-        public int Attack()
+        public int AttackDamage()
         {
             int damage = 0;
             damage = rand.Next(6) * damageMult;
@@ -52,6 +54,11 @@ namespace Text_Based_RPG
         public void BeAttacked(int damage)
         {
             health -= damage;
+        }
+
+        public void Attack()
+        {
+            isAttacking = true;
         }
     }
 }
