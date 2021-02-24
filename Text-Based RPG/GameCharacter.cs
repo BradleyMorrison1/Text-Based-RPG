@@ -8,8 +8,8 @@ namespace Text_Based_RPG
 {
     abstract class GameCharacter
     {
-        protected string avatar = "■";
-        protected string name = "";
+        public string avatar = "■";
+        public string name = "";
         protected ConsoleColor avatarColor;
 
         public bool isAttacking = false;

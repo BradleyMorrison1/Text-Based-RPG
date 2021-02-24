@@ -26,17 +26,19 @@ namespace Text_Based_RPG
             avatarColor = ConsoleColor.Cyan;
         }
 
-        public void Update(Enemy enemy, Item healthPack, Item shield, Item sword)
+        public void Update(Enemy enemy1, Enemy enemy2, Enemy enemy3, Item healthPack, Item shield, Item sword)
         {
             if (isDead) return;
             isAttacking = false;
             Draw();
             ShowHud();
-            Move(enemy.x, enemy.y, Map.map);
+            Move(enemy1.x, enemy1.y, enemy2.x, enemy2.y, enemy3.x, enemy3.y, Map.map);
             PickUpItem(healthPack.itemType, healthPack.value, healthPack.x, healthPack.y);
             PickUpItem(shield.itemType, shield.value, shield.x, shield.y);
             PickUpItem(sword.itemType, sword.value, sword.x, sword.y);
-            Attack(enemy.x, enemy.y);
+            Attack(enemy1.x, enemy1.y);
+            Attack(enemy2.x, enemy2.y);
+            Attack(enemy3.x, enemy3.y);
             Draw();
             if (health <= 0)
             {
@@ -45,7 +47,7 @@ namespace Text_Based_RPG
             }
         }
 
-        public void Move(int enemyX, int enemyY, char[,] map)
+        public void Move(int enemyX1, int enemyY1, int enemyX2, int enemyY2, int enemyX3, int enemyY3, char[,] map)
         {
             while (Console.KeyAvailable) Console.ReadKey(false); // Adds a buffer to prevent stacked movement
 
@@ -54,22 +56,31 @@ namespace Text_Based_RPG
             {
                 case 'w':
                     y--;
-                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) y++;
+                    if (map[x, y] != ' ' || enemyX1 == x && enemyY1 == y
+                        || enemyX2 == x && enemyY2 == y 
+                        || enemyX3 == x && enemyY3 == y) y++;
+                        
                     break;
 
                 case 's':
                     y++;
-                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) y--;
+                    if (map[x, y] != ' ' || enemyX1 == x && enemyY1 == y
+                        || enemyX2 == x && enemyY2 == y
+                        || enemyX3 == x && enemyY3 == y) y--;
                     break;
 
                 case 'a':
                     x--;
-                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) x++;
+                    if (map[x, y] != ' ' || enemyX1 == x && enemyY1 == y
+                        || enemyX2 == x && enemyY2 == y
+                        || enemyX3 == x && enemyY3 == y) x++;
                     break;
 
                 case 'd':
                     x++;
-                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) x--;
+                    if (map[x, y] != ' ' || enemyX1 == x && enemyY1 == y
+                        || enemyX2 == x && enemyY2 == y
+                        || enemyX3 == x && enemyY3 == y) x--;
                     break;
             }
 
@@ -77,22 +88,30 @@ namespace Text_Based_RPG
             {
                 case ConsoleKey.UpArrow:
                     y--;
-                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) y++;
+                    if (map[x, y] != ' ' || enemyX1 == x && enemyY1 == y
+                        || enemyX2 == x && enemyY2 == y
+                        || enemyX3 == x && enemyY3 == y) y++;
                     break;
 
                 case ConsoleKey.DownArrow:
                     y++;
-                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) y--;
+                    if (map[x, y] != ' ' || enemyX1 == x && enemyY1 == y
+                        || enemyX2 == x && enemyY2 == y
+                        || enemyX3 == x && enemyY3 == y) y--;
                     break;
 
                 case ConsoleKey.LeftArrow:
                     x--;
-                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) x++;
+                    if (map[x, y] != ' ' || enemyX1 == x && enemyY1 == y
+                        || enemyX2 == x && enemyY2 == y
+                        || enemyX3 == x && enemyY3 == y) x++;
                     break;
 
                 case ConsoleKey.RightArrow:
                     x++;
-                    if (map[x, y] != ' ' || enemyX == x && enemyY == y) x--;
+                    if (map[x, y] != ' ' || enemyX1 == x && enemyY1 == y
+                        || enemyX2 == x && enemyY2 == y
+                        || enemyX3 == x && enemyY3 == y) x--;
                     break;
             }
         }

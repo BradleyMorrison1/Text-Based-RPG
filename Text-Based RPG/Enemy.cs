@@ -9,6 +9,7 @@ namespace Text_Based_RPG
     class Enemy : GameCharacter
     {
         public int moveChance; // Used to decide if enemy will move
+        public int moveType;
 
         public Enemy()
         {
@@ -19,12 +20,6 @@ namespace Text_Based_RPG
             shield = maxShield;
             damageMult = 3;
 
-            // Starting Position
-            x = 50;
-            y = 5;
-
-            name = "Enemy";
-            avatar = "0";
             avatarColor = ConsoleColor.Red;
         }
 
@@ -50,12 +45,14 @@ namespace Text_Based_RPG
             int playerXY = playerX + playerY;
             int playerDistance = enemyXY - playerXY;
 
-            int moveType = 0;
 
 
             switch (moveType)
             {
-                case 0:
+                case 0: // Enemy Wanders then chases player
+                // Starting Position
+                x = 50;
+                y = 5;
                 if (playerDistance > 5) // Enemy wanders
                 {
                     moveChance = rand.Next(10);
@@ -115,7 +112,66 @@ namespace Text_Based_RPG
                 }
                 break;
 
+                case 1: // Enemy wanders
+                    x = 12;
+                    y = 45;
 
+                    moveChance = rand.Next(10);
+                    switch (moveChance)
+                    {
+                        case 1:
+                            x++;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) x--;
+                            break;
+
+                        case 2:
+                            x--;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) x++;
+                            break;
+
+                        case 3:
+                            y++;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) y--;
+                            break;
+
+                        case 4:
+                            y--;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) y++;
+                            break;
+                    }
+                    break;
+
+                case 2: // enemy chases player
+                    x = 50;
+                    y = 50;
+                    if (x != playerX)
+                    {
+                        if (playerX > x)
+                        {
+                            x++;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) x--;
+                        }
+                        else
+                        {
+                            x--;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) x++;
+                        }
+                    }
+
+                    else if (y != playerY)
+                    {
+                        if (playerY > y)
+                        {
+                            y++;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) y--;
+                        }
+                        else
+                        {
+                            y--;
+                            if (map[x, y] != ' ' || playerX == x && playerY == y) y++;
+                        }
+                    }
+                    break;
             }
             
 
