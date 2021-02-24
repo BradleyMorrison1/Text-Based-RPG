@@ -8,11 +8,12 @@ namespace Text_Based_RPG
 {
     abstract class GameCharacter
     {
-        string avatar = "■";
+        protected string avatar = "■";
         protected string name = "";
         protected ConsoleColor avatarColor;
 
         public bool isAttacking = false;
+        protected bool isDead = false;
 
         protected Random rand = new Random();
 
@@ -21,6 +22,8 @@ namespace Text_Based_RPG
 
         public int maxHealth;
         public int health;
+        public int maxShield;
+        public int shield;
         public int damageMult; // Multiplier for damage
 
         public void Draw()
@@ -42,6 +45,9 @@ namespace Text_Based_RPG
         {
             if (health <= 0) health = 0;
             if (health >= maxHealth) health = maxHealth;
+
+            if (shield <= 0) shield = 0;
+            if (shield >= maxShield) shield = maxShield;
         }
 
         public int AttackDamage()
@@ -52,20 +58,21 @@ namespace Text_Based_RPG
         }
         public void BeAttacked(int damage)
         {
-            health -= damage;
+            int healthDamage = damage - shield;
+
+            shield -= damage;
+            if(shield <= 0)health -= healthDamage;
         }
 
         public void Attack(int opponentX, int opponentY)
         {
-            //isAttacking = true;
-
-
-
-
-            if (opponentX == (x + 1) && opponentY == y) isAttacking = true;
-            else if (opponentX == (x - 1) && opponentY == y) isAttacking = true;
-            else if (opponentY == (y + 1) && opponentX == x) isAttacking = true;
-            else if (opponentY == (y - 1) && opponentX == x) isAttacking = true;
+            if(health > 0)
+            {
+                if (opponentX == (x + 1) && opponentY == y) isAttacking = true;
+                else if (opponentX == (x - 1) && opponentY == y) isAttacking = true;
+                else if (opponentY == (y + 1) && opponentX == x) isAttacking = true;
+                else if (opponentY == (y - 1) && opponentX == x) isAttacking = true;
+            }
         }
     }
 }

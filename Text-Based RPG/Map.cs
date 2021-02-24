@@ -24,7 +24,7 @@ namespace Text_Based_RPG
         
         public void Draw()
         {
-            Console.SetWindowSize(60, 61);
+            Console.SetWindowSize(90, 61);
             Console.SetCursorPosition(0, 0);
 
             var file = new StreamReader("Map.txt");

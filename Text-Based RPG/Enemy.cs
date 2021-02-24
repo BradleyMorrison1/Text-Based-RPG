@@ -13,25 +13,35 @@ namespace Text_Based_RPG
         public Enemy()
         {
             // Variable Initalization
-            maxHealth = 100;
+            maxHealth = 50;
             health = maxHealth;
-            damageMult = 4;
+            maxShield = 50;
+            shield = maxShield;
+            damageMult = 3;
 
             // Starting Position
             x = 50;
             y = 5;
 
             name = "Enemy";
+            avatar = "0";
             avatarColor = ConsoleColor.Red;
         }
 
         public void Update(Player player)
         {
-            Draw();
-            ShowHud();
+            if (isDead) return;
+            isAttacking = false;
+            if (((x + y) - (player.x + player.y)) < 5) ShowHud();
             Move(player.x, player.y, Map.map);
             Attack(player.x, player.y);
             Draw();
+            if (health <= 0)
+            {
+                isDead = true;
+                Console.Clear();
+                return;
+            }
         }
 
         public void Move(int playerX, int playerY, char[,] map)
@@ -113,7 +123,7 @@ namespace Text_Based_RPG
         public void ShowHud()
         {
             RangeCheckHealth();
-            string enemyHUD = ("| " + name + " |  Health: " + health + " |");
+            string enemyHUD = ("| " + name + " |  Health: " + health + " |  Shield: " + shield + " |");
             Console.SetCursorPosition((Console.WindowWidth - enemyHUD.Length - 1), Console.WindowHeight - 1);
             Console.ForegroundColor = avatarColor;
             Console.Write(enemyHUD);
