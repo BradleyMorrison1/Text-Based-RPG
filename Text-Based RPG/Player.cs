@@ -24,8 +24,14 @@ namespace Text_Based_RPG
             avatarColor = ConsoleColor.Cyan;
         }
 
-        public void Update()
+        public void Update(Enemy enemy)
         {
+            isAttacking = false;
+            Draw();
+            ShowHud();
+            Move(enemy.x, enemy.y, Map.map);
+            Attack(enemy.x, enemy.y);
+            Draw();
         }
 
         public void Move(int enemyX, int enemyY, char[,] map)
@@ -37,25 +43,21 @@ namespace Text_Based_RPG
             {
                 case 'w':
                     y--;
-                    if (enemyX == x && enemyY == y) Attack();
                     if (map[x, y] != ' ' || enemyX == x && enemyY == y) y++;
                     break;
 
                 case 's':
                     y++;
-                    if (enemyX == x && enemyY == y) Attack();
                     if (map[x, y] != ' ' || enemyX == x && enemyY == y) y--;
                     break;
 
                 case 'a':
                     x--;
-                    if (enemyX == x && enemyY == y) Attack();
                     if (map[x, y] != ' ' || enemyX == x && enemyY == y) x++;
                     break;
 
                 case 'd':
                     x++;
-                    if (enemyX == x && enemyY == y) Attack();
                     if (map[x, y] != ' ' || enemyX == x && enemyY == y) x--;
                     break;
             }

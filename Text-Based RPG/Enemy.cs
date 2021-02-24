@@ -25,6 +25,15 @@ namespace Text_Based_RPG
             avatarColor = ConsoleColor.Red;
         }
 
+        public void Update(Player player)
+        {
+            Draw();
+            ShowHud();
+            Move(player.x, player.y, Map.map);
+            Attack(player.x, player.y);
+            Draw();
+        }
+
         public void Move(int playerX, int playerY, char[,] map)
         {
             int enemyXY = x + y;  
@@ -63,7 +72,7 @@ namespace Text_Based_RPG
                                 break;
                         }
                     }
-                else if (moveChance < 6) // Makes the enemy move at player just over every other turn
+                else if (moveChance < 5) // Makes the enemy move at player every other turn
                 {
                     // moves enemy toward player
                     if (x != playerX)
@@ -71,13 +80,11 @@ namespace Text_Based_RPG
                         if (playerX > x)
                         {
                             x++;
-                            if (playerX == x && playerY == y) Attack();
                             if (map[x, y] != ' ' || playerX == x && playerY == y) x--;
                         }
                         else
                         {
                             x--;
-                            if (playerX == x && playerY == y) Attack();
                             if (map[x, y] != ' ' || playerX == x && playerY == y) x++;
                         }
                     }
@@ -87,13 +94,11 @@ namespace Text_Based_RPG
                         if (playerY > y) 
                         {
                             y++;
-                            if (playerX == x && playerY == y) Attack();
                             if (map[x, y] != ' ' || playerX == x && playerY == y) y--;
                         }
                         else
                         {
                             y--;
-                            if (playerX == x && playerY == y) Attack();
                             if (map[x, y] != ' ' || playerX == x && playerY == y) y++;
                         }
                     }

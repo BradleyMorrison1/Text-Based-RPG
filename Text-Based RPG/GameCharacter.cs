@@ -25,7 +25,6 @@ namespace Text_Based_RPG
 
         public void Draw()
         {
-            isAttacking = false;
             Console.ForegroundColor = avatarColor;
             RangeCheckWindowBorder();
             Console.SetCursorPosition(x, y);
@@ -56,9 +55,17 @@ namespace Text_Based_RPG
             health -= damage;
         }
 
-        public void Attack()
+        public void Attack(int opponentX, int opponentY)
         {
-            isAttacking = true;
+            //isAttacking = true;
+
+
+
+
+            if (opponentX == (x + 1) && opponentY == y) isAttacking = true;
+            else if (opponentX == (x - 1) && opponentY == y) isAttacking = true;
+            else if (opponentY == (y + 1) && opponentX == x) isAttacking = true;
+            else if (opponentY == (y - 1) && opponentX == x) isAttacking = true;
         }
     }
 }

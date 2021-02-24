@@ -16,30 +16,20 @@ namespace Text_Based_RPG
             Enemy enemy = new Enemy();
             Map map = new Map();
 
-            //map.DrawBorder();
-            map.Draw();
-            player.Draw();
-            enemy.Draw();
+            //map.Draw();
+            //player.Draw();
+            //enemy.Draw();
             // --------------------------- Game Loop 
             while(isRunning)
             {
                 map.Draw();
+
                 enemy.Draw();
-                player.Draw();
-
-                player.ShowHud();
-                enemy.ShowHud();
-
-
-                player.Move(enemy.x, enemy.y, Map.map);
+                player.Update(enemy);
                 if (player.isAttacking) enemy.BeAttacked(player.AttackDamage());
 
-                enemy.Move(player.x, player.y, Map.map);
+                enemy.Update(player);
                 if (enemy.isAttacking) player.BeAttacked(enemy.AttackDamage());
-
-                Console.Clear();
-                player.Draw();
-                enemy.Draw();
             }
         }
     }
