@@ -11,6 +11,9 @@ namespace Text_Based_RPG
         public int moveChance; // Used to decide if enemy will move
         public int moveType;
 
+        private bool firstRun = false;
+
+
         public Enemy()
         {
             // Variable Initalization
@@ -27,8 +30,8 @@ namespace Text_Based_RPG
         {
             if (isDead) return;
             isAttacking = false;
-            if (((x + y) - (player.x + player.y)) < 5) ShowHud();
             Move(player.x, player.y, Map.map);
+            if (x - player.x < 5 && y - player.y < 5) ShowHud();
             Attack(player.x, player.y);
             Draw();
             if (health <= 0)
@@ -50,9 +53,14 @@ namespace Text_Based_RPG
             switch (moveType)
             {
                 case 0: // Enemy Wanders then chases player
-                // Starting Position
-                x = 50;
-                y = 5;
+                    // Starting Position
+                    if (!firstRun) // only sets x and y on start
+                    {
+                        x = 50;
+                        y = 5;
+                        firstRun = true;
+                    }
+                   
                 if (playerDistance > 5) // Enemy wanders
                 {
                     moveChance = rand.Next(10);
@@ -113,10 +121,15 @@ namespace Text_Based_RPG
                 break;
 
                 case 1: // Enemy wanders
-                    x = 12;
-                    y = 45;
 
-                    moveChance = rand.Next(10);
+                    if (!firstRun) // only sets x and y on start
+                    {
+                        x = 12;
+                        y = 45;
+                        firstRun = true;
+                    }
+
+                    moveChance = rand.Next(4);
                     switch (moveChance)
                     {
                         case 1:
@@ -142,8 +155,14 @@ namespace Text_Based_RPG
                     break;
 
                 case 2: // enemy chases player
-                    x = 50;
-                    y = 50;
+
+                    if (!firstRun)
+                    {
+                        x = 50;
+                        y = 51;
+                        firstRun = true;
+                    }
+                    
                     if (x != playerX)
                     {
                         if (playerX > x)
@@ -154,6 +173,7 @@ namespace Text_Based_RPG
                         else
                         {
                             x--;
+                        
                             if (map[x, y] != ' ' || playerX == x && playerY == y) x++;
                         }
                     }

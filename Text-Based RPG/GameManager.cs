@@ -57,7 +57,23 @@ namespace Text_Based_RPG
             if (enemy3.isAttacking) player.BeAttacked(enemy3.AttackDamage());
 
             player.Update(enemy1, enemy2, enemy3, healthPack, shield, sword);
-            if (player.isAttacking) enemy1.BeAttacked(player.AttackDamage());
+            if (player.isAttacking && (player.x + 1) == enemy1.x && player.y == enemy1.y) enemy1.BeAttacked(player.AttackDamage());
+            else if (player.isAttacking && (player.x - 1) == enemy1.x && player.y == enemy1.y) enemy1.BeAttacked(player.AttackDamage());
+            else if (player.isAttacking && (player.y + 1) == enemy1.y && player.x == enemy1.x) enemy1.BeAttacked(player.AttackDamage());
+            else if (player.isAttacking && (player.y - 1) == enemy1.y && player.x == enemy1.x) enemy1.BeAttacked(player.AttackDamage());
+
+            if (player.isAttacking && (player.x + 1) == enemy2.x && player.y == enemy2.y) enemy2.BeAttacked(player.AttackDamage());
+            else if (player.isAttacking && (player.x - 1) == enemy2.x && player.y == enemy2.y) enemy2.BeAttacked(player.AttackDamage());
+            else if (player.isAttacking && (player.y + 1) == enemy2.y && player.x == enemy2.x) enemy2.BeAttacked(player.AttackDamage());
+            else if (player.isAttacking && (player.y - 1) == enemy2.y && player.x == enemy2.x) enemy2.BeAttacked(player.AttackDamage());
+
+            if (player.isAttacking && (player.x + 1) == enemy3.x && player.y == enemy3.y) enemy3.BeAttacked(player.AttackDamage());
+            else if (player.isAttacking && (player.x - 1) == enemy3.x && player.y == enemy3.y) enemy3.BeAttacked(player.AttackDamage());
+            else if (player.isAttacking && (player.y + 1) == enemy3.y && player.x == enemy3.x) enemy3.BeAttacked(player.AttackDamage());
+            else if (player.isAttacking && (player.y - 1) == enemy3.y && player.x == enemy3.x) enemy3.BeAttacked(player.AttackDamage());
+
+
+
         }
     }
 }
