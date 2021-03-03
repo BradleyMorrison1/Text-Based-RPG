@@ -14,8 +14,12 @@ namespace Text_Based_RPG
         private bool firstRun = false;
 
 
-        public Enemy()
+        public Enemy(int thisMoveType, string thisName, string thisAvatar)
         {
+            moveType = thisMoveType;
+            name = thisName;
+            avatar = thisAvatar;
+
             // Variable Initalization
             maxHealth = 50;
             health = maxHealth;
@@ -33,11 +37,12 @@ namespace Text_Based_RPG
             Move(player.x, player.y, Map.map);
             if (x - player.x < 5 && y - player.y < 5) ShowHud();
             Attack(player.x, player.y);
-            Draw();
             if (health <= 0)
             {
                 isDead = true;
-                Console.Clear();
+                x = 40;
+                y = 0;
+                avatar = "";
                 return;
             }
         }

@@ -30,7 +30,6 @@ namespace Text_Based_RPG
         {
             if (isDead) return;
             isAttacking = false;
-            Draw();
             ShowHud();
             Move(enemy1.x, enemy1.y, enemy2.x, enemy2.y, enemy3.x, enemy3.y, Map.map);
             PickUpItem(healthPack.itemType, healthPack.value, healthPack.x, healthPack.y);
@@ -39,7 +38,6 @@ namespace Text_Based_RPG
             Attack(enemy1.x, enemy1.y);
             Attack(enemy2.x, enemy2.y);
             Attack(enemy3.x, enemy3.y);
-            Draw();
             if (health <= 0)
             {
                 isDead = true;
@@ -49,7 +47,7 @@ namespace Text_Based_RPG
 
         public void Move(int enemyX1, int enemyY1, int enemyX2, int enemyY2, int enemyX3, int enemyY3, char[,] map)
         {
-            while (Console.KeyAvailable) Console.ReadKey(false); // Adds a buffer to prevent stacked movement
+            while (Console.KeyAvailable) Console.ReadKey(true); // Adds a buffer to prevent stacked movement
 
             ConsoleKeyInfo userInput = Console.ReadKey(true);
             switch (userInput.KeyChar)

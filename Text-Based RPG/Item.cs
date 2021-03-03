@@ -24,8 +24,11 @@ namespace Text_Based_RPG
         public const int ITEM_SHIELD = 1;
         public const int ITEM_SWORD = 2;
 
-        public Item()
+        public Item(int thisItemType, int thisX, int thisY)
         {
+            itemType = thisItemType;
+            x = thisX;
+            y = thisY;
         }
 
         public void Update(Player player)
@@ -33,7 +36,7 @@ namespace Text_Based_RPG
             if (pickedUp) return;
 
             ItemType();
-            Draw();
+            
 
             if (player.x == x && player.y == y) pickedUp = true;
         }
