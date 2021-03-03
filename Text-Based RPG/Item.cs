@@ -18,6 +18,8 @@ namespace Text_Based_RPG
 
         public int value;
 
+        private string typeName; // for message to show up in game 
+
         public bool pickedUp = false;
 
         public const int ITEM_HEALTH = 0;
@@ -33,12 +35,22 @@ namespace Text_Based_RPG
 
         public void Update(Player player)
         {
-            if (pickedUp) return;
-
             ItemType();
-            
 
-            if (player.x == x && player.y == y) pickedUp = true;
+            if (player.x == x && player.y == y)
+            {
+                Console.ForegroundColor = iconColor;
+                Console.Write("+"+ value + typeName);//pickedUp = true;
+                Console.ResetColor();
+                pickedUp = true;
+            }
+
+            if(pickedUp) // prevents player from picking up 
+            {
+                x = 50;
+                y = 0;
+                icon = "";
+            }
         }
 
         public void ItemType()
@@ -46,18 +58,21 @@ namespace Text_Based_RPG
             switch (itemType)
             {
                 case ITEM_HEALTH:
+                    typeName = " Health";
                     icon = "+";
                     iconColor = ConsoleColor.Green;
                     value = 50;
                     break;
 
                 case ITEM_SHIELD:
+                    typeName = " Shield";
                     icon = "*";
                     iconColor = ConsoleColor.Blue;
                     value = 50;
                     break;
 
                 case ITEM_SWORD:
+                    typeName = " Damage";
                     icon = "/";
                     iconColor = ConsoleColor.DarkGray;
                     value = 2;

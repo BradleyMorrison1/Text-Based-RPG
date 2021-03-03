@@ -13,7 +13,7 @@ namespace Text_Based_RPG
         protected ConsoleColor avatarColor;
 
         public bool isAttacking = false;
-        protected bool isDead = false;
+        public bool isDead = false;
 
         protected Random rand = new Random();
 

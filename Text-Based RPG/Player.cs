@@ -41,6 +41,8 @@ namespace Text_Based_RPG
             if (health <= 0)
             {
                 isDead = true;
+                Console.SetCursorPosition(x, y);
+                Console.WriteLine("PLAYER HAS DIED");
                 return;
             }
         }

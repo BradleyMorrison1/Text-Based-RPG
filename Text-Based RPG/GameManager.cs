@@ -10,17 +10,22 @@ namespace Text_Based_RPG
     {
 
         Player player = new Player();
-        Enemy enemy1 = new Enemy(0, "Enemy 1", "0");
-        Enemy enemy2 = new Enemy(1, "Enemy 2", "&");
-        Enemy enemy3 = new Enemy(2, "Enemy 3", ".");
+        Enemy enemy1 = new Enemy(0, "Enemy 1", "0", 50, 5);
+        Enemy enemy2 = new Enemy(1, "Enemy 2", "&", 12, 45);
+        Enemy enemy3 = new Enemy(2, "Enemy 3", ".", 50, 51);
         Map map = new Map();
         Item healthPack = new Item(Item.ITEM_HEALTH, 40, 14);
         Item shield = new Item(Item.ITEM_SHIELD, 45, 16);
         Item sword = new Item(Item.ITEM_SWORD, 5, 2);
 
+        bool hasRun = false;
+
         public void Game()
         {
             Console.CursorVisible = false;
+            if (!hasRun) DrawElements(); // draws game on first run otherwise game will be blank
+            hasRun = true;
+            if (player.isDead) return; // stops the game if the player dies
 
             healthPack.Update(player);
             shield.Update(player);
@@ -51,7 +56,11 @@ namespace Text_Based_RPG
             enemy3.Update(player);
             if (enemy3.isAttacking) player.BeAttacked(enemy3.AttackDamage());
 
+            DrawElements();
+        }
 
+        public void DrawElements()
+        {
             map.Draw();
             healthPack.Draw();
             shield.Draw();

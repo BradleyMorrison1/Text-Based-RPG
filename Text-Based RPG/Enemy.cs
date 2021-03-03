@@ -14,11 +14,13 @@ namespace Text_Based_RPG
         private bool firstRun = false;
 
 
-        public Enemy(int thisMoveType, string thisName, string thisAvatar)
+        public Enemy(int thisMoveType, string thisName, string thisAvatar, int thisX, int thisY)
         {
             moveType = thisMoveType;
             name = thisName;
             avatar = thisAvatar;
+            x = thisX;
+            y = thisY;
 
             // Variable Initalization
             maxHealth = 50;
@@ -58,14 +60,6 @@ namespace Text_Based_RPG
             switch (moveType)
             {
                 case 0: // Enemy Wanders then chases player
-                    // Starting Position
-                    if (!firstRun) // only sets x and y on start
-                    {
-                        x = 50;
-                        y = 5;
-                        firstRun = true;
-                    }
-                   
                 if (playerDistance > 5) // Enemy wanders
                 {
                     moveChance = rand.Next(10);
@@ -126,14 +120,6 @@ namespace Text_Based_RPG
                 break;
 
                 case 1: // Enemy wanders
-
-                    if (!firstRun) // only sets x and y on start
-                    {
-                        x = 12;
-                        y = 45;
-                        firstRun = true;
-                    }
-
                     moveChance = rand.Next(4);
                     switch (moveChance)
                     {
@@ -160,14 +146,6 @@ namespace Text_Based_RPG
                     break;
 
                 case 2: // enemy chases player
-
-                    if (!firstRun)
-                    {
-                        x = 50;
-                        y = 51;
-                        firstRun = true;
-                    }
-                    
                     if (x != playerX)
                     {
                         if (playerX > x)
